@@ -34,7 +34,7 @@ nav a.l:hover span{transform:translateY(-100%)}
 .go .hl>span{transform:none}
 .go .hl:nth-child(2)>span{transition-delay:.12s}
 .hero h1{font-size:clamp(40px,8.6vw,150px);font-weight:800;text-transform:uppercase}
-.hero-top{display:grid;grid-template-columns:1fr minmax(240px,320px);gap:40px;align-items:end}
+.hero-top{display:block}
 .hero-side{display:grid;gap:16px;justify-items:start;border-left:1px solid var(--line);padding:4px 0 .5em 28px}
 .hs-st{display:flex;align-items:center;gap:10px;font-weight:500}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--acc);display:inline-block;animation:pulse 2s ease-out infinite}
