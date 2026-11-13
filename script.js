@@ -26,29 +26,11 @@
     $$('.chip', group).forEach(function (chip, i) { chip.style.setProperty('--i', i); });
   });
 
-  /* count-up numbers */
-  function countUp(el) {
-    var to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec || '0', 10);
-    if (reduce) { el.textContent = to.toFixed(dec); return; }
-    var start = performance.now(), d = 1600;
-    function step(now) {
-      var p = Math.min(1, (now - start) / d);
-      var e = 1 - Math.pow(1 - p, 4);
-      var v = to * e;
-      el.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-US');
-      if (p < 1) requestAnimationFrame(step);
-      else el.textContent = dec ? to.toFixed(dec) : to.toLocaleString('en-US');
-    }
-    requestAnimationFrame(step);
-  }
-
   /* scroll reveal */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (!e.isIntersecting) return;
       e.target.classList.add('in');
-      var c = $('.cnt', e.target);
-      if (c) countUp(c);
       io.unobserve(e.target);
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
@@ -56,6 +38,24 @@
     el.style.transitionDelay = (i % 3) * 70 + 'ms';
     io.observe(el);
   });
+
+
+  /* scroll-scrubbed statement: words darken as you scroll through it */
+  var sayT = $('#sayT');
+  if (sayT) {
+    var words = sayT.textContent.trim().split(/\s+/);
+    sayT.innerHTML = words.map(function (w) { return '<span class="w">' + w + '</span>'; }).join(' ');
+    var ws = $$('.w', sayT);
+    var paint = function () {
+      var r = sayT.getBoundingClientRect(), vh = window.innerHeight;
+      var p = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.35)));
+      var n = Math.round(p * ws.length);
+      ws.forEach(function (el, i) { el.classList.toggle('on', i < n); });
+    };
+    window.addEventListener('scroll', paint, { passive: true });
+    window.addEventListener('resize', paint);
+    paint();
+  }
 
   /* page transition on nav links */
   var pt = $('#pt');
