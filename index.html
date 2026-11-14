@@ -160,12 +160,59 @@
 <div class="m-bar">
 <span>Shivani Pathak, resume</span>
 <div class="m-act">
-<a id="mTab" href="#" target="_blank" rel="noopener">Open in new tab</a>
-<a id="mDl" href="#" download="Shivani_Pathak_Resume.pdf">Download</a>
+<a id="mTab" href="Shivani_Pathak_Resume.pdf" target="_blank" rel="noopener">Open PDF</a>
+<a id="mDl" href="Shivani_Pathak_Resume.pdf" download="Shivani_Pathak_Resume.pdf">Download PDF</a>
 <button type="button" id="mClose" aria-label="Close resume">Close</button>
 </div>
 </div>
-<iframe id="mFrame" title="Resume PDF"></iframe>
+<div class="m-doc" id="mDoc">
+<article class="paper">
+<h2>Shivani Pathak</h2>
+<p class="pl">Software Developer Intern Candidate | Full-Stack and Backend | B.Tech Computer Science</p>
+<p class="pc">Pune, India · shivanipathak5143@gmail.com · +91 7776916093<br>linkedin.com/in/shivanipathak-a5a009329 · github.com/shivanipathak5143-web</p>
+<h4>Summary</h4>
+<p>Third-year B.Tech Computer Science student (CGPA 9.03/10) with strong foundations in data structures, algorithms and object-oriented design. Built and deployed full-stack and backend systems with Python, FastAPI, React, TypeScript, Node.js and MongoDB, using Docker, AWS and GitHub Actions CI. Seeking a Software Developer Internship to ship production-quality features and grow as an engineer.</p>
+<h4>Technical skills</h4>
+<ul>
+<li><b>Languages:</b> Python, Java, JavaScript, TypeScript, C, C++, SQL</li>
+<li><b>Backend:</b> FastAPI, Flask, Node.js, Express.js, REST APIs, JWT Authentication, API Design</li>
+<li><b>Frontend:</b> React.js, TypeScript, HTML, CSS</li>
+<li><b>Databases:</b> MongoDB, MySQL</li>
+<li><b>DevOps and tools:</b> Git, GitHub, GitHub Actions (CI/CD), Docker, AWS (EC2, S3, CloudFront, ECR, Systems Manager), Postman, pytest, Jupyter Notebook</li>
+<li><b>CS fundamentals:</b> Data Structures and Algorithms, OOP, Graph Algorithms, Debugging</li>
+<li><b>AI/ML:</b> Scikit-learn, Pandas, NumPy, OpenCV, YOLOv8, MLflow, LLM API integration (Groq, LLaMA 3)</li>
+</ul>
+<h4>Projects</h4>
+<p><b>CodeFlow: GitHub repository architecture explorer</b><br><span class="pt2">Python, FastAPI, React, TypeScript, NetworkX, Scikit-learn</span></p>
+<ul>
+<li>Full-stack tool that converts any public GitHub repository into an interactive architecture map, reading order and file notes; parses Python and JS/TS, builds the import graph with NetworkX and ranks files with PageRank.</li>
+<li>FastAPI backend and React + TypeScript frontend with code search, function flowcharts, call-path tracing and pull-request impact analysis; retries and caching for LLM explanations via Groq.</li>
+<li>pytest tests and a GitHub Actions CI/CD pipeline that builds a Docker image, pushes it to Amazon ECR and deploys to AWS EC2 through OIDC and Systems Manager; TF-IDF + logistic regression file-role classifier evaluated on 2,142 files from 28 repositories (macro-F1 0.39 vs 0.07 baseline).</li>
+</ul>
+<p><b>SmartMeasure: object dimension estimation from a single photo</b><br><span class="pt2">Python, YOLOv8, Depth Anything V2, OpenCV, FastAPI, React, Docker, AWS</span></p>
+<ul>
+<li>Estimates real-world object dimensions from one image using YOLOv8 segmentation, monocular depth and camera-geometry back-projection, fused with class-specific size priors.</li>
+<li>Marker-based precision mode (ArUco, homography) alongside the marker-free estimator, exposed through FastAPI and React.</li>
+<li>Containerized with Docker and deployed on AWS; precision mode ±1-3 cm, marker-free mode typically 10-30% error.</li>
+</ul>
+<p><b>Phishing website detection: ML service</b><br><span class="pt2">Python, Scikit-learn, MongoDB, FastAPI, React, Docker, AWS, MLflow</span></p>
+<ul>
+<li>Automated ML pipeline (ingestion, schema and drift validation, transformation, training, evaluation) comparing multiple classifiers on 30 URL, SSL and domain-age features.</li>
+<li>FastAPI service for retraining and real-time prediction from CSV uploads, backed by MongoDB.</li>
+<li>Dockerized, deployed to AWS, with MLflow tracking experiments, parameters and model versions.</li>
+</ul>
+<h4>Additional projects</h4>
+<ul>
+<li><b>LeetTrack</b> (MongoDB, Express, React, Node.js, Groq API): DSA practice tracker with JWT authentication, dashboards, streak and heatmap analytics, and an AI mentor chat.</li>
+<li><b>ResumeIQ</b> (MERN, Groq API, LLaMA 3): AI career assistant that scores resumes against job descriptions and rewrites bullet points.</li>
+<li><b>Hotel Management System</b> (Java, MySQL, JDBC): booking, billing and inventory system built with OOP principles.</li>
+</ul>
+<h4>Education</h4>
+<p><b>B.Tech, Computer Science</b>, AISSMS Institute of Information Technology, Pune · 2024 - 2028 (expected) · CGPA 9.03 / 10<br>Coursework: Data Structures and Algorithms, OOP, Database Management Systems, Operating Systems, Computer Networks</p>
+<h4>Certifications</h4>
+<p>Artificial Intelligence Fundamentals (IBM SkillsBuild) · Java Full Stack Development</p>
+</article>
+</div>
 </div>
 
 <script src="resume-data.js"></script>
