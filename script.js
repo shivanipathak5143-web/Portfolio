@@ -84,7 +84,7 @@
   });
 
   /* resume viewer: builds the PDF from embedded data so it opens from anywhere */
-  var modal = $('#modal'), frame = $('#mFrame'), closeBtn = $('#mClose'), lastBtn = null;
+  var modal = $('#modal'), doc = $('#mDoc'), closeBtn = $('#mClose'), lastBtn = null;
   var tab = $('#mTab'), dl = $('#mDl'), blobUrl = null;
 
   function getBlobUrl() {
@@ -100,9 +100,9 @@
   }
   function openModal() {
     var u = getBlobUrl();
-    frame.src = u;
     tab.href = u;
     dl.href = u;
+    doc.scrollTop = 0;
     modal.setAttribute('aria-hidden', 'false');
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
