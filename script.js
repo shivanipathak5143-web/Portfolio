@@ -224,12 +224,49 @@
     if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
 
-  /* contact form opens the visitor's email app */
-  $('#form').addEventListener('submit', function (e) {
+  /* contact form: sends in the background, with an easy fallback if that fails.
+     Optional: get a free key at web3forms.com (enter your email) and paste it below
+     for the most reliable sending. Leave it empty to use FormSubmit instead. */
+  var WEB3_KEY = '';
+  var TO = 'shivanipathak5143@gmail.com';
+  var form = $('#form'), fs = $('#fs'), sendBtn = $('#sendBtn');
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var nm = $('#nm').value, em = $('#em').value, ms = $('#ms').value;
-    location.href = 'mailto:shivanipathak5143@gmail.com?subject=' +
-      encodeURIComponent('Portfolio message from ' + nm) +
-      '&body=' + encodeURIComponent(ms + '\n\n' + nm + ' (' + em + ')');
+    if ($('#hp').value) return;
+    var nm = $('#nm').value.trim(), em = $('#em').value.trim(), ms = $('#ms').value.trim();
+    var subj = 'Portfolio message from ' + nm;
+    var body = ms + '\n\n' + nm + ' (' + em + ')';
+    fs.className = 'fs';
+    fs.textContent = 'Sending...';
+    sendBtn.disabled = true;
+    var url, payload;
+    if (WEB3_KEY) {
+      url = 'https://api.web3forms.com/submit';
+      payload = { access_key: WEB3_KEY, name: nm, email: em, message: ms, subject: subj };
+    } else {
+      url = 'https://formsubmit.co/ajax/' + TO;
+      payload = { name: nm, email: em, message: ms, _subject: subj, _replyto: em, _captcha: 'false' };
+    }
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); }).then(function (data) {
+      if (data && (data.success === 'true' || data.success === true)) {
+        fs.className = 'fs ok';
+        fs.textContent = 'Thanks ' + nm + ', your message was sent.';
+        form.reset();
+      } else {
+        throw new Error((data && data.message) || 'not accepted');
+      }
+    }).catch(function () {
+      var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(TO) +
+        '&su=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+      var mail = 'mailto:' + TO + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+      fs.className = 'fs err';
+      fs.innerHTML = 'Could not send automatically. Your message is still here. Send it with ' +
+        '<a href="' + gmail + '" target="_blank" rel="noopener">Gmail</a> or ' +
+        '<a href="' + mail + '">your email app</a>, or write to ' + TO + '.';
+    }).then(function () { sendBtn.disabled = false; });
   });
 })();
