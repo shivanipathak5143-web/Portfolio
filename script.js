@@ -229,16 +229,32 @@
      for the most reliable sending. Leave it empty to use FormSubmit instead. */
   var WEB3_KEY = '';
   var TO = 'shivanipathak5143@gmail.com';
-  var form = $('#form'), fs = $('#fs'), sendBtn = $('#sendBtn');
+  var form = $('#form'), fs = $('#fs'), sending = false;
+
+  function fallback(subj, body, why) {
+    var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(TO) +
+      '&su=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+    var mail = 'mailto:' + TO + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+    fs.className = 'fs err';
+    fs.innerHTML = 'Could not send automatically. Your message is still here. Send it with ' +
+      '<a href="' + gmail + '" target="_blank" rel="noopener">Gmail</a> or ' +
+      '<a href="' + mail + '">your email app</a>, or write to ' + TO + '.' +
+      (why ? ' <small>(Reason: ' + String(why).replace(/</g, '&lt;') + ')</small>' : '');
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if ($('#hp').value) return;
+    if ($('#hp').value || sending) return;
     var nm = $('#nm').value.trim(), em = $('#em').value.trim(), ms = $('#ms').value.trim();
     var subj = 'Portfolio message from ' + nm;
     var body = ms + '\n\n' + nm + ' (' + em + ')';
+
+    /* a page opened straight from a file cannot reach FormSubmit, so go to the fallback at once */
+    if (!WEB3_KEY && location.protocol === 'file:') { fallback(subj, body); return; }
+
+    sending = true;
     fs.className = 'fs';
     fs.textContent = 'Sending...';
-    sendBtn.disabled = true;
     var url, payload;
     if (WEB3_KEY) {
       url = 'https://api.web3forms.com/submit';
@@ -247,11 +263,15 @@
       url = 'https://formsubmit.co/ajax/' + TO;
       payload = { name: nm, email: em, message: ms, _subject: subj, _replyto: em, _captcha: 'false' };
     }
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
+    var done = function () { clearTimeout(timer); sending = false; };
     fetch(url, {
       method: 'POST',
+      signal: ctrl ? ctrl.signal : undefined,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
-    }).then(function (r) { return r.json(); }).then(function (data) {
+    }).then(function (r) { return r.json().catch(function () { throw new Error('HTTP ' + r.status); }); }).then(function (data) {
       if (data && (data.success === 'true' || data.success === true)) {
         fs.className = 'fs ok';
         fs.textContent = 'Thanks ' + nm + ', your message was sent.';
@@ -259,14 +279,8 @@
       } else {
         throw new Error((data && data.message) || 'not accepted');
       }
-    }).catch(function () {
-      var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(TO) +
-        '&su=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
-      var mail = 'mailto:' + TO + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
-      fs.className = 'fs err';
-      fs.innerHTML = 'Could not send automatically. Your message is still here. Send it with ' +
-        '<a href="' + gmail + '" target="_blank" rel="noopener">Gmail</a> or ' +
-        '<a href="' + mail + '">your email app</a>, or write to ' + TO + '.';
-    }).then(function () { sendBtn.disabled = false; });
+    }).catch(function (err) {
+      fallback(subj, body, err && err.name === 'AbortError' ? 'timed out' : err && err.message);
+    }).then(done, done);
   });
 })();
