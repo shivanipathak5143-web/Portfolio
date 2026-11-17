@@ -37,7 +37,6 @@
   });
 
 
-  /* scroll-scrubbed statement: words darken as you scroll through it */
   var sayT = $('#sayT');
   if (sayT) {
     var words = sayT.textContent.trim().split(/\s+/);
@@ -55,7 +54,6 @@
   }
 
 
-  /* hero network graph */
   (function () {
     var cv = $('#net');
     if (!cv || !cv.getContext) return;
@@ -156,7 +154,6 @@
     start();
   })();
 
-  /* page transition on nav links */
   var pt = $('#pt');
   $$('[data-go]').forEach(function (a) {
     a.addEventListener('click', function (ev) {
