@@ -3,7 +3,6 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* loader */
   var loader = $('#loader'), count = $('#count'), hero = $('#hero');
   var t0 = performance.now(), dur = reduce ? 10 : 1400;
   function tick(now) {
@@ -21,12 +20,10 @@
   requestAnimationFrame(tick);
   window.scrollTo(0, 0);
 
-  /* tool chips get a stagger index */
   $$('.chips').forEach(function (group) {
     $$('.chip', group).forEach(function (chip, i) { chip.style.setProperty('--i', i); });
   });
 
-  /* scroll reveal */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (!e.isIntersecting) return;
