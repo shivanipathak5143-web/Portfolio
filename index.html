@@ -137,7 +137,7 @@
 </ul>
 <div class="soc">
 <a href="https://github.com/shivanipathak5143-web" target="_blank" rel="noopener">GitHub</a>
-<a href="https://www.linkedin.com/in/shivani-pathak-a5a009329/" target="_blank" rel="noopener">LinkedIn</a>
+<a href="https://www.linkedin.com/in/shivanipathak-a5a009329/" target="_blank" rel="noopener">LinkedIn</a>
 <a href="mailto:shivanipathak5143@gmail.com">Email</a>
 </div>
 </div>
@@ -145,7 +145,9 @@
 <div><label for="nm">Name</label><input id="nm" required autocomplete="name"></div>
 <div><label for="em">Email</label><input id="em" type="email" required autocomplete="email"></div>
 <div><label for="ms">Your message</label><textarea id="ms" rows="4" required></textarea></div>
-<button class="btn" type="submit">Send message <span class="ar">↗</span></button>
+<input type="text" id="hp" name="_honey" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+<button class="btn" type="submit" id="sendBtn">Send message <span class="ar">↗</span></button>
+<p class="fs" id="fs" role="status" aria-live="polite"></p>
 </form>
 </div>
 </section>
@@ -153,13 +155,21 @@
 
 <footer>
 <div class="wrap">
-<div class="fr">
+<div class="fgrid rv">
 <div><h4>Quick links</h4><ul>
 <li><a href="#about" data-go>About</a></li><li><a href="#services" data-go>Services</a></li><li><a href="#tools" data-go>Tools</a></li><li><a href="#work" data-go>Work</a></li><li><a href="#resume" data-go>Resume</a></li>
 </ul></div>
-<div><h4>Contact</h4><ul><li><a href="mailto:shivanipathak5143@gmail.com">shivanipathak5143@gmail.com</a></li><li><a href="tel:+917776916093">+91 7776916093</a></li><li>Pune, India</li></ul></div>
+<div><h4>Elsewhere</h4><ul>
+<li><a href="https://github.com/shivanipathak5143-web" target="_blank" rel="noopener">GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/shivanipathak-a5a009329/" target="_blank" rel="noopener">LinkedIn</a></li>
+</ul></div>
+<div><h4>Contact</h4><ul>
+<li><a href="tel:+917776916093">+91 7776916093</a></li>
+<li><i class="live" aria-hidden="true"></i>Pune, India · <span id="pune">--</span></li>
+</ul></div>
+<a class="totop" href="#top" data-go aria-label="Back to top"><span aria-hidden="true">↑</span></a>
 </div>
-<p class="copy">©2026 Shivani Pathak</p>
+<div class="fbar"><span>©2026 Shivani Pathak</span></div>
 </div>
 </footer>
 
