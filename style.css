@@ -168,14 +168,24 @@ input,textarea{width:100%;background:none;border:0;border-bottom:1px solid var(-
 input:focus,textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 1px 0 var(--acc)}
 button.btn{border:0;font:inherit;cursor:pointer;justify-self:start}
 
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fs{font-size:15px;min-height:1.5em}
+.fs.ok{color:#1a7a3a}
+.fs.err{color:#b3261e}
+.fs a{border-bottom:1px solid currentColor}
+
 /* footer */
-footer{margin-top:clamp(80px,12vw,160px);background:var(--ink);color:var(--bg);padding:48px 0 28px}
-.fr{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;font-size:15px}
-.fr ul{list-style:none;display:grid;gap:4px}
-.fr h4{font-weight:400;color:#8d8c86;font-size:14px;margin-bottom:8px}
-.fr a{transition:color .3s}
-.fr a:hover{color:#8fa0ff}
-.copy{margin-top:48px;font-size:14px;color:#8d8c86}
+footer{margin-top:clamp(56px,8vw,96px);background:var(--ink);color:var(--bg);padding:clamp(28px,3.5vw,44px) 0 16px;overflow:hidden}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:24px;align-items:start;font-size:14px}
+.fgrid h4{font-weight:400;color:#8d8c86;font-size:13px;margin-bottom:6px}
+.fgrid ul{list-style:none;display:grid;gap:3px}
+.fgrid li a{transition:color .3s}
+.fgrid li a:hover{color:#8fa0ff}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:8px;animation:blip 2s ease-out infinite}
+@keyframes blip{0%{box-shadow:0 0 0 0 rgba(74,222,128,.55)}100%{box-shadow:0 0 0 10px rgba(74,222,128,0)}}
+.totop{width:46px;height:46px;border-radius:50%;border:1px solid #55544f;display:grid;place-items:center;font-size:18px;transition:background .4s,border-color .4s,transform .6s var(--ease)}
+.totop:hover{background:var(--acc);border-color:var(--acc);transform:translateY(-6px)}
+.fbar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:22px;font-size:13px;color:#8d8c86}
 
 @media(max-width:820px){
 nav ul{display:none}
@@ -183,6 +193,7 @@ nav ul{display:none}
 .go .hero-art{opacity:.55}
 .badge{display:none}
 .hero-row,.hero-top,.ct,.sv-i,.tg{grid-template-columns:1fr}
+.fgrid{grid-template-columns:1fr 1fr}
 
 .facts{grid-template-columns:1fr 1fr;row-gap:28px}
 .fc:nth-child(3){padding-left:0;border-left:0}
