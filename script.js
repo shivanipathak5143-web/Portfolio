@@ -3,6 +3,7 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
+  /* loader */
   var loader = $('#loader'), count = $('#count'), hero = $('#hero');
   var t0 = performance.now(), dur = reduce ? 10 : 1400;
   function tick(now) {
@@ -20,10 +21,12 @@
   requestAnimationFrame(tick);
   window.scrollTo(0, 0);
 
+  /* tool chips get a stagger index */
   $$('.chips').forEach(function (group) {
     $$('.chip', group).forEach(function (chip, i) { chip.style.setProperty('--i', i); });
   });
 
+  /* scroll reveal */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (!e.isIntersecting) return;
@@ -37,6 +40,7 @@
   });
 
 
+  /* scroll-scrubbed statement: words darken as you scroll through it */
   var sayT = $('#sayT');
   if (sayT) {
     var words = sayT.textContent.trim().split(/\s+/);
@@ -54,6 +58,7 @@
   }
 
 
+  /* hero network graph */
   (function () {
     var cv = $('#net');
     if (!cv || !cv.getContext) return;
@@ -154,6 +159,7 @@
     start();
   })();
 
+  /* page transition on nav links */
   var pt = $('#pt');
   $$('[data-go]').forEach(function (a) {
     a.addEventListener('click', function (ev) {
@@ -217,6 +223,18 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
+
+  /* live Pune time in the footer */
+  var clock = $('#pune');
+  if (clock) {
+    var showTime = function () {
+      try {
+        clock.textContent = new Intl.DateTimeFormat('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' }).format(new Date()) + ' IST';
+      } catch (err) { clock.textContent = ''; }
+    };
+    showTime();
+    setInterval(showTime, 20000);
+  }
 
   /* contact form: sends in the background, with an easy fallback if that fails.
      Optional: get a free key at web3forms.com (enter your email) and paste it below
